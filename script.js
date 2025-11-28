@@ -57,16 +57,29 @@ const statusDiv             = document.getElementById('status');
 const weatherSpinner        = document.getElementById('weatherSpinner');
 
 // Initialize map
+// Initialize map
 const map = L.map('map').setView([7.8731, 80.7718], 7);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap contributors | Weather: Open-Meteo'
 }).addTo(map);
+
+// Fix map display issues
+setTimeout(() => {
+  map.invalidateSize();
+}, 200);
+
+// Handle window resize
+window.addEventListener('resize', () => {
+  setTimeout(() => map.invalidateSize(), 250);
+});
+
 
 // Geocoder control
 L.Control.geocoder({
   defaultMarkGeocode: true,
   placeholder: 'Search location...'
 }).addTo(map);
+
 
 // Status helpers
 function showStatus(message, type = 'loading') {
@@ -357,3 +370,12 @@ setInterval(() => {
 
 // Initial load
 updateFloodZones();
+
+// Make map responsive on window resize
+window.addEventListener('resize', () => {
+  if (map) {
+    setTimeout(() => {
+      map.invalidateSize();
+    }, 100);
+  }
+});

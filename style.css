@@ -91,6 +91,7 @@ button:hover {
     border: 1px solid rgba(255,255,255,0.2);
 }
 
+
 .forecast-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -114,14 +115,22 @@ button:hover {
     margin-bottom: 10px;
 }
 
+/* Leaflet Map */
 #map {
-    height: 70vh;
     width: 100%;
+    height: 70vh;
     border-radius: 20px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.4);
     margin-top: 20px;
 }
 
+/* Make leaflet container fill parent */
+.leaflet-container {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Legend */
 .legend {
     background: rgba(0,0,0,0.7);
     padding: 15px;
@@ -143,6 +152,7 @@ button:hover {
     margin-right: 10px;
 }
 
+/* Notifications */
 .notification {
     position: fixed;
     top: 20px;
@@ -161,10 +171,20 @@ button:hover {
     to { opacity: 1; transform: translateX(0); }
 }
 
-@media (max-width: 768px) {
-    .grid { grid-template-columns: 1fr; }
-    input { width: 250px; }
-    h1 { font-size: 2rem; }
+.poster-row {
+  display: flex;
+  justify-content: space-between; /* left & right */
+  align-items: center;
+  gap: 10px;                       /* space between images */
+  margin-top: 10px;
+}
+
+.poster-side {
+  flex: 1 1 0;
+  max-width: 40%;                  /* stay side by side on large screens */
+  border-radius: 15px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  display: block;
 }
 
 .spinner {
@@ -180,4 +200,78 @@ button:hover {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    input {
+        width: 90vw;
+        max-width: 400px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .controls {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    input {
+        width: 90vw;
+        max-width: none;
+    }
+
+    button {
+        width: 80vw;
+        max-width: 300px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .poster-row {
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .poster-side {
+      max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    input {
+        width: 90vw;
+        font-size: 14px;
+    }
+
+    button {
+        width: 90vw;
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 1.25rem;
+    }
+}
+#map {
+    width: 100%;
+    height: 60vh;           /* Changed from 70vh */
+    min-height: 400px;      /* ADD THIS */
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    margin-top: 20px;
 }
