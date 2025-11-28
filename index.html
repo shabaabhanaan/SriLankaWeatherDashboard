@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sri Lanka Enhanced Weather & Flood Dashboard</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="dashboard">
+        <h1>🌦️ Sri Lanka Real-Time Weather & Flood Dashboard</h1>
+
+        <div class="controls">
+            <input type="text" id="cityInput" placeholder="Enter city or place in Sri Lanka (e.g., Colombo, Kandy)" />
+            <button id="searchBtn">🔍 Search</button>
+            <button id="refreshBtn">↻ Refresh</button>
+        </div>
+
+        <div id="status" class="status" style="display: none;"></div>
+
+        <div class="grid">
+            <div class="card" id="weatherInfo">
+                <h3>🌡️ Current Weather</h3>
+                <div class="spinner" id="weatherSpinner" style="display: none;"></div>
+                <div id="weatherContent">Click search to get weather data</div>
+            </div>
+
+            <div class="card" id="alertsContainer">
+                <h3>🚨 Flood Alerts</h3>
+                <div id="alertsContent">Loading flood zones...</div>
+            </div>
+
+            <div class="card">
+                <h3>📊 Forecast (Next 6 Hours)</h3>
+                <div class="forecast-grid" id="forecastInfo"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>🗺️ Interactive Flood Risk Map</h3>
+            <div id="map"></div>
+            <div class="legend">
+                <div class="legend-item"><div class="legend-color" style="background: red;"></div>High Risk (>50mm)</div>
+                <div class="legend-item"><div class="legend-color" style="background: orange;"></div>Medium Risk (20-50mm)</div>
+                <div class="legend-item"><div class="legend-color" style="background: yellow;"></div>Low Risk (<20mm)</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="notificationContainer"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
