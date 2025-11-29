@@ -1,51 +1,6 @@
-// Flood zones data and popup descriptions
-const floodZones = [
-  // Western Province
-  { name: "Colombo",      coords: [6.9271, 79.8612], popup: "Colombo District" },
-  { name: "Gampaha",      coords: [7.0906, 79.9975], popup: "Gampaha District" },
-  { name: "Kalutara",     coords: [6.5833, 79.9667], popup: "Kalutara District" },
-
-  // Central Province
-  { name: "Kandy",        coords: [7.2906, 80.6337], popup: "Kandy District" },
-  { name: "Matale",       coords: [7.4675, 80.6234], popup: "Matale District" },
-  { name: "Nuwara Eliya", coords: [6.9708, 80.7829], popup: "Nuwara Eliya District" },
-
-  // Southern Province
-  { name: "Galle",        coords: [6.0535, 80.2210], popup: "Galle District" },
-  { name: "Matara",       coords: [5.9478, 80.5423], popup: "Matara District" },
-  { name: "Hambantota",   coords: [6.1240, 81.1185], popup: "Hambantota District" },
-
-  // Northern Province
-  { name: "Jaffna",       coords: [9.6615, 80.0255], popup: "Jaffna District" },
-  { name: "Kilinochchi",  coords: [9.3763, 80.3995], popup: "Kilinochchi District" },
-  { name: "Mannar",       coords: [8.9770, 79.9044], popup: "Mannar District" },
-  { name: "Vavuniya",     coords: [8.7514, 80.4976], popup: "Vavuniya District" },
-  { name: "Mullaitivu",   coords: [9.2671, 80.8151], popup: "Mullaitivu District" },
-
-  // Eastern Province
-  { name: "Batticaloa",   coords: [7.7314, 81.6924], popup: "Batticaloa District" },
-  { name: "Ampara",       coords: [7.2970, 81.6820], popup: "Ampara District" },
-  { name: "Trincomalee",  coords: [8.5711, 81.2335], popup: "Trincomalee District" },
-
-  // North Western Province
-  { name: "Kurunegala",   coords: [7.4863, 80.3623], popup: "Kurunegala District" },
-  { name: "Puttalam",     coords: [8.0408, 79.8409], popup: "Puttalam District" },
-
-  // North Central Province
-  { name: "Anuradhapura", coords: [8.3114, 80.4037], popup: "Anuradhapura District" },
-  { name: "Polonnaruwa",  coords: [7.9396, 81.0036], popup: "Polonnaruwa District" },
-
-  // Uva Province
-  { name: "Badulla",      coords: [6.9896, 81.0550], popup: "Badulla District" },
-  { name: "Monaragala",   coords: [6.8731, 81.3500], popup: "Monaragala District" },
-
-  // Sabaragamuwa Province
-  { name: "Ratnapura",    coords: [6.6828, 80.3962], popup: "Ratnapura District" },
-  { name: "Kegalle",      coords: [7.2513, 80.3464], popup: "Kegalle District" }
-];
-
-
-// DOM elements
+// ================================
+// DOM Elements
+// ================================
 const searchBtn             = document.getElementById('searchBtn');
 const refreshBtn            = document.getElementById('refreshBtn');
 const cityInput             = document.getElementById('cityInput');
@@ -55,25 +10,197 @@ const alertsContainer       = document.getElementById('alertsContent');
 const notificationContainer = document.getElementById('notificationContainer');
 const statusDiv             = document.getElementById('status');
 const weatherSpinner        = document.getElementById('weatherSpinner');
+const newsSpinner           = document.getElementById('newsSpinner');
+const newsContent           = document.getElementById('newsContent');
 
-// Initialize map
-// Initialize map
+// ================================
+// Flood Zones Data
+// ================================
+const floodZones = [
+    { name: "Colombo", coords: [6.9271, 79.8612] },
+    { name: "Gampaha", coords: [7.0906, 79.9975] },
+    { name: "Kalutara", coords: [6.5833, 79.9667] },
+    { name: "Kandy", coords: [7.2906, 80.6337] },
+    { name: "Matale", coords: [7.4675, 80.6234] },
+    { name: "Nuwara Eliya", coords: [6.9708, 80.7829] },
+    { name: "Galle", coords: [6.0535, 80.2210] },
+    { name: "Matara", coords: [5.9478, 80.5423] },
+    { name: "Hambantota", coords: [6.1240, 81.1185] },
+    { name: "Jaffna", coords: [9.6615, 80.0255] },
+    { name: "Kilinochchi", coords: [9.3763, 80.3995] },
+    { name: "Mannar", coords: [8.9770, 79.9044] },
+    { name: "Vavuniya", coords: [8.7514, 80.4976] },
+    { name: "Mullaitivu", coords: [9.2671, 80.8151] },
+    { name: "Batticaloa", coords: [7.7314, 81.6924] },
+    { name: "Ampara", coords: [7.2970, 81.6820] },
+    { name: "Trincomalee", coords: [8.5711, 81.2335] },
+    { name: "Kurunegala", coords: [7.4863, 80.3623] },
+    { name: "Puttalam", coords: [8.0408, 79.8409] },
+    { name: "Anuradhapura", coords: [8.3114, 80.4037] },
+    { name: "Polonnaruwa", coords: [7.9396, 81.0036] },
+    { name: "Badulla", coords: [6.9896, 81.0550] },
+    { name: "Monaragala", coords: [6.8731, 81.3500] },
+    { name: "Ratnapura", coords: [6.6828, 80.3962] },
+    { name: "Kegalle", coords: [7.2513, 80.3464] }
+];
+
+// Simulated flood alerts (replace with real API data if available)
+const floodAlerts = [
+    { name: "Colombo", risk: "Extreme", description: "Heavy rain / strong wind" },
+    { name: "Gampaha", risk: "Extreme", description: "Heavy rain / strong wind" },
+    { name: "Kalutara", risk: "Extreme", description: "Heavy rain / strong wind" },
+    { name: "Kandy", risk: "Extreme", description: "Heavy rain / strong wind" },
+    { name: "Matale", risk: "High", description: "Moderate-heavy rain / windy" },
+    { name: "Nuwara Eliya", risk: "Extreme", description: "Heavy rain / strong wind" },
+    { name: "Galle", risk: "Extreme", description: "Heavy rain / strong wind" },
+    { name: "Matara", risk: "Extreme", description: "Heavy rain / strong wind" },
+    { name: "Hambantota", risk: "Extreme", description: "Heavy rain / strong wind" }
+];
+
+// ================================
+// Initialize Map
+// ================================
 const map = L.map('map').setView([7.8731, 80.7718], 7);
+
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '© OpenStreetMap contributors | Weather: Open-Meteo'
+    attribution: '© OpenStreetMap contributors | Weather: Open-Meteo'
 }).addTo(map);
 
-// Fix map display issues
-setTimeout(() => {
-  map.invalidateSize();
-}, 200);
+// Fix map rendering
+setTimeout(() => map.invalidateSize(), 200);
+window.addEventListener('resize', () => setTimeout(() => map.invalidateSize(), 250));
 
-// Handle window resize
-window.addEventListener('resize', () => {
-  setTimeout(() => map.invalidateSize(), 250);
+// ================================
+// Add Flood Zone Markers
+// ================================
+floodZones.forEach(zone => {
+    const alert = floodAlerts.find(a => a.name === zone.name);
+    let color;
+    if(alert){
+        color = alert.risk === "Extreme" ? "red" :
+                alert.risk === "High" ? "orange" :
+                "yellow";
+    } else { color = "green"; }
+
+    const circle = L.circleMarker(zone.coords, {
+        radius: 10,
+        color: color,
+        fillColor: color,
+        fillOpacity: 0.6,
+        weight: 1
+    }).addTo(map);
+
+    circle.bindPopup(`<strong>${zone.name}</strong><br>${alert ? alert.risk : 'No Alert'}`);
 });
 
+// ================================
+// Populate Flood Alerts Section
+// ================================
+function loadFloodAlerts(){
+    alertsContainer.innerHTML = "";
+    floodAlerts.forEach(alert => {
+        const div = document.createElement('div');
+        div.innerHTML = `🚨 <strong>${alert.name}</strong> - ${alert.risk} (${alert.description})`;
+        alertsContainer.appendChild(div);
+    });
+}
+loadFloodAlerts();
 
+// ================================
+// Fetch Weather
+// ================================
+async function fetchWeather(city = "Colombo") {
+    weatherSpinner.style.display = "block";
+    weatherContent.innerHTML = "";
+    forecastInfo.innerHTML = "";
+
+    try {
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=6.9271&longitude=79.8612&current_weather=true&hourly=temperature_2m,precipitation`;
+        const res = await fetch(url);
+        const data = await res.json();
+
+        weatherSpinner.style.display = "none";
+
+        if(!data.current_weather){
+            weatherContent.innerHTML = "Weather data not available";
+            return;
+        }
+
+        weatherContent.innerHTML = `
+            🌡️ Temp: ${data.current_weather.temperature}°C<br>
+            💨 Wind: ${data.current_weather.windspeed} km/h<br>
+            ⛅ Weather: ${data.current_weather.weathercode}
+        `;
+
+        // Forecast (next 6 hours)
+        const hourly = data.hourly.temperature_2m.slice(0,6);
+        hourly.forEach((temp, idx) => {
+            const div = document.createElement('div');
+            div.className = "forecast-item";
+            div.innerHTML = `Hour +${idx+1}: ${temp}°C`;
+            forecastInfo.appendChild(div);
+        });
+
+    } catch(err) {
+        weatherSpinner.style.display = "none";
+        weatherContent.innerHTML = "Error fetching weather data";
+    }
+}
+fetchWeather();
+
+// ================================
+// Load Sri Lanka News (Secure Backend)
+// ================================
+async function loadSriLankaNews() {
+    newsSpinner.style.display = "block";
+    newsContent.innerHTML = "";
+
+    try {
+        const res = await fetch("/api/news"); // Your backend proxy
+        const data = await res.json();
+
+        newsSpinner.style.display = "none";
+
+        if(!data.news || data.news.length === 0){
+            newsContent.innerHTML = "<p>No news available</p>";
+            return;
+        }
+
+        data.news.forEach(item => {
+            const div = document.createElement("div");
+            div.className = "news-item";
+            div.innerHTML = `
+                <h4>${item.title}</h4>
+                <p>${item.summary || "No summary available."}</p>
+                <a href="${item.url}" target="_blank">Read Full Article</a>
+            `;
+            newsContent.appendChild(div);
+        });
+
+    } catch(err) {
+        newsSpinner.style.display = "none";
+        newsContent.innerHTML = "<p>Error loading news</p>";
+    }
+}
+loadSriLankaNews();
+
+// ================================
+// Search & Refresh Buttons
+// ================================
+searchBtn.addEventListener('click', () => {
+    const city = cityInput.value.trim();
+    if(city){
+        fetchWeather(city);
+    } else {
+        alert("Please enter a city name!");
+    }
+});
+
+refreshBtn.addEventListener('click', () => {
+    fetchWeather();
+    loadSriLankaNews();
+    loadFloodAlerts();
+});
 // Geocoder control
 L.Control.geocoder({
   defaultMarkGeocode: true,
@@ -90,7 +217,41 @@ function showStatus(message, type = 'loading') {
 function hideStatus() {
   statusDiv.style.display = 'none';
 }
+async function loadSriLankaNews() {
+    const newsContent = document.getElementById("newsContent");
+    const spinner = document.getElementById("newsSpinner");
 
+    spinner.style.display = "block";
+    newsContent.innerHTML = "";
+
+    try {
+        const response = await fetch("/api/news"); // backend proxy
+        const data = await response.json();
+
+        spinner.style.display = "none";
+
+        if (!data.news || data.news.length === 0) {
+            newsContent.innerHTML = "<p>No news currently.</p>";
+            return;
+        }
+
+        data.news.forEach(item => {
+            const div = document.createElement("div");
+            div.className = "news-item";
+            div.innerHTML = `
+                <h4>${item.title}</h4>
+                <p>${item.summary || "No summary available."}</p>
+                <a href="${item.url}" target="_blank">Read Full Article</a>
+            `;
+            newsContent.appendChild(div);
+        });
+    } catch (err) {
+        spinner.style.display = "none";
+        newsContent.innerHTML = "<p>Error loading news.</p>";
+    }
+}
+
+loadSriLankaNews();
 // Notification helper
 function showNotification(message) {
   const notification = document.createElement('div');
