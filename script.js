@@ -44,6 +44,175 @@ const floodZones = [
     { name: "Kegalle", coords: [7.2513, 80.3464] }
 ];
 
+// Simulated Flood Alerts
+const floodAlerts = [
+    { name: "Colombo", risk: "Extreme", description: "Heavy rain / strong wind" },
+    { name: "Gampaha", risk: "Extreme", description: "Heavy rain / strong wind" },
+    { name: "Kalutara", risk: "Extreme", description: "Heavy rain / strong wind" },
+    { name: "Kandy", risk: "Extreme", description: "Heavy rain / strong wind" },
+    { name: "Matale", risk: "High", description: "Moderate-heavy rain / windy" },
+    { name: "Nuwara Eliya", risk: "Extreme", description: "Heavy rain / strong wind" },
+    { name: "Galle", risk: "Extreme", description: "Heavy rain / strong wind" },
+    { name: "Matara", risk: "Extreme", description: "Heavy rain / strong wind" },
+    { name: "Hambantota", risk: "Extreme", description: "Heavy rain / strong wind" }
+];
+
+// ================================
+// Initialize Map
+// ================================
+const map = L.map('map').setView([7.8731, 80.7718], 7);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors | Weather: Open-Meteo'
+}).addTo(map);
+
+// Fix map rendering
+setTimeout(() => map.invalidateSize(), 200);
+window.addEventListener('resize', () => setTimeout(() => map.invalidateSize(), 250));
+
+// ================================
+// Add Flood Zone Markers
+// ================================
+floodZones.forEach(zone => {
+    const alert = floodAlerts.find(a => a.name === zone.name);
+    let color;
+    if(alert){
+        color = alert.risk === "Extreme" ? "red" :
+                alert.risk === "High" ? "orange" :
+                "yellow";
+    } else { color = "green"; }
+
+    const circle = L.circleMarker(zone.coords, {
+        radius: 10,
+        color: color,
+        fillColor: color,
+        fillOpacity: 0.6,
+        weight: 1
+    }).addTo(map);
+
+    circle.bindPopup(`<strong>${zone.name}</strong><br>${alert ? alert.risk : 'No Alert'}`);
+});
+
+// ================================
+// Populate Flood Alerts Section
+// ================================
+function loadFloodAlerts(){
+    alertsContainer.innerHTML = "";
+    floodAlerts.forEach(alert => {
+        const div = document.createElement('div');
+        div.innerHTML = `🚨 <strong>${alert.name}</strong> - ${alert.risk} (${alert.description})`;
+        alertsContainer.appendChild(div);
+    });
+}
+loadFloodAlerts();
+
+// ================================
+// Fetch Weather (Open-Meteo API)
+// ================================
+async function fetchWeather(city = "Colombo") {
+    weatherSpinner.style.display = "block";
+    weatherContent.innerHTML = "";
+    forecastInfo.innerHTML = "";
+
+    try {
+        // For simplicity, using Colombo coordinates; ideally you convert city -> lat/lon
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=6.9271&longitude=79.8612&current_weather=true&hourly=temperature_2m,precipitation`;
+        const res = await fetch(url);
+        const data = await res.json();
+
+        weatherSpinner.style.display = "none";
+
+        if(!data.current_weather){
+            weatherContent.innerHTML = "Weather data not available";
+            return;
+        }
+
+        weatherContent.innerHTML = `
+            🌡️ Temp: ${data.current_weather.temperature}°C<br>
+            💨 Wind: ${data.current_weather.windspeed} km/h<br>
+            ⛅ Weather Code: ${data.current_weather.weathercode}
+        `;
+
+        // Forecast (next 6 hours)
+        const hourly = data.hourly.temperature_2m.slice(0,6);
+        hourly.forEach((temp, idx) => {
+            const div = document.createElement('div');
+            div.className = "forecast-item";
+            div.innerHTML = `Hour +${idx+1}: ${temp}°C`;
+            forecastInfo.appendChild(div);
+        });
+
+    } catch(err) {
+        weatherSpinner.style.display = "none";
+        weatherContent.innerHTML = "Error fetching weather data";
+        console.error(err);
+    }
+}
+fetchWeather();
+
+// ================================
+// Load Sri Lanka News (Secure Backend)
+// ================================
+async function loadSriLankaNews() {
+    newsSpinner.style.display = "block";
+    newsContent.innerHTML = "";
+
+    try {
+        const res = await fetch("/api/news"); // Backend proxy
+        const data = await res.json();
+
+        newsSpinner.style.display = "none";
+
+        if(!data.news || data.news.length === 0){
+            newsContent.innerHTML = "<p>No news available</p>";
+            return;
+        }
+
+        data.news.forEach(item => {
+            const div = document.createElement("div");
+            div.className = "news-item";
+            div.innerHTML = `
+                <h4>${item.title}</h4>
+                <p>${item.summary || "No summary available."}</p>
+                <a href="${item.url}" target="_blank">Read Full Article</a>
+            `;
+            newsContent.appendChild(div);
+        });
+
+    } catch(err) {
+        newsSpinner.style.display = "none";
+        newsContent.innerHTML = "<p>Error loading news</p>";
+        console.error(err);
+    }
+}
+loadSriLankaNews();
+
+// ================================
+// Search & Refresh Buttons
+// ================================
+searchBtn.addEventListener('click', () => {
+    const city = cityInput.value.trim();
+    if(city){
+        fetchWeather(city);
+    } else {
+        alert("Please enter a city name!");
+    }
+});
+
+refreshBtn.addEventListener('click', () => {
+    fetchWeather();
+    loadSriLankaNews();
+    loadFloodAlerts();
+});    { name: "Kurunegala", coords: [7.4863, 80.3623] },
+    { name: "Puttalam", coords: [8.0408, 79.8409] },
+    { name: "Anuradhapura", coords: [8.3114, 80.4037] },
+    { name: "Polonnaruwa", coords: [7.9396, 81.0036] },
+    { name: "Badulla", coords: [6.9896, 81.0550] },
+    { name: "Monaragala", coords: [6.8731, 81.3500] },
+    { name: "Ratnapura", coords: [6.6828, 80.3962] },
+    { name: "Kegalle", coords: [7.2513, 80.3464] }
+];
+
 // Simulated flood alerts (replace with real API data if available)
 const floodAlerts = [
     { name: "Colombo", risk: "Extreme", description: "Heavy rain / strong wind" },
