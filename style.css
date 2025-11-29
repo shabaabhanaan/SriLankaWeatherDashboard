@@ -4,7 +4,28 @@
     padding: 0;
     box-sizing: border-box;
 }
+.disclaimer-box {
+    background: #fff3cd;
+    border-left: 6px solid #ff9800;
+    padding: 15px 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+}
 
+.disclaimer-box h3 {
+    margin: 0;
+    font-size: 20px;
+    color: #b76e00;
+}
+
+.disclaimer-box p {
+    margin-top: 10px;
+    line-height: 1.5;
+    font-size: 14px;
+    color: #5a4a2c;
+}
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #6dd5fa 100%);
