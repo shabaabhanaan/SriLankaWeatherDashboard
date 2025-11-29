@@ -31,34 +31,58 @@
                 <h3>🚨 Flood Alerts</h3>
                 <div id="alertsContent">Loading flood zones...</div>
             </div>
-            <div class="card" id="newsSection">
-   <div class="card" id="newsSection">
-    <h3>📰 Sri Lanka Weather News</h3>
-    <div id="newsContent">Loading latest weather news...</div>
-</div>
 
+            <div class="card" id="newsSection">
+                <h3>📰 Sri Lanka Weather News</h3>
+                <div id="newsContent">Loading latest weather news...</div>
+            </div>
 
             <div class="card">
                 <h3>📊 Forecast (Next 6 Hours)</h3>
                 <div class="forecast-grid" id="forecastInfo"></div>
             </div>
         </div>
-    <div class="card">
-  <h3>Project Posters</h3>
-  <div class="poster-row">
-    <img src="assets/poster1.jpg" alt="Poster 1" class="poster-side">
-    <img src="assets/poster2.jpg" alt="Poster 2" class="poster-side">
-  </div>
-</div
 
+        <div class="card">
+            <h3>📞 Emergency & Disaster Contacts</h3>
+            <div class="emergency-contacts">
+                <h4>National-Level Services</h4>
+                <ul>
+                    <li><strong>DMC (Disaster Management Center):</strong> 117</li>
+                    <li><strong>Suwa Seriya Ambulance:</strong> 1990</li>
+                    <li><strong>NBRO (Landslide Alerts):</strong> 011 258 8946</li>
+                    <li><strong>Police Emergency:</strong> 119</li>
+                    <li><strong>Fire Brigade:</strong> 110</li>
+                    <li><strong>Meteorology Department:</strong> 011 268 6686</li>
+                </ul>
+                <h4>District-Level Coordination</h4>
+                <ul>
+                    <li><strong>Galle:</strong> 091 224 2355 / 077 395 7889</li>
+                    <li><strong>Matara:</strong> 041 223 4030 / 077 395 7894</li>
+                    <li><strong>Hambantota:</strong> 047 225 8056 / 077 395 7895</li>
+                    <li><strong>Ratnapura:</strong> 045 222 5522 / 077 395 7898</li>
+                    <li><strong>Kegalle:</strong> 035 222 2843 / 077 395 7891</li>
+                    <li><strong>Anuradhapura:</strong> 025 222 5333 / 077 395 7883</li>
+                    <li><strong>Polonnaruwa:</strong> 027 222 6676 / 077 395 7884</li>
+                    <li><strong>Vavuniya:</strong> 055 222 4434 / 077 395 7885</li>
+                    <li><strong>Mannar:</strong> 055 227 6378 / 077 395 7893</li>
+                    <li><strong>Kurunegala:</strong> 037 222 0455 / 077 395 7892</li>
+                    <li><strong>Puttalam:</strong> 032 226 5345 / 077 395 7896</li>
+                    <li><strong>Badulla:</strong> 055 222 4434 / 077 395 7885</li>
+                    <li><strong>Monaragala:</strong> 055 227 6378 / 077 395 7893</li>
+                    <li><strong>Kandy:</strong> 081 243 4028 / 077 395 7893</li>
+                    <li><strong>Matale:</strong> 033 223 4676 / 077 395 7888</li>
+                </ul>
+            </div>
+        </div>
 
         <div class="card">
             <h3>🗺️ Interactive Flood Risk Map</h3>
             <div id="map"></div>
             <div class="legend">
-                <div class="legend-item"><div class="legend-color" style="background: red;"></div>High Risk (>50mm)</div>
-                <div class="legend-item"><div class="legend-color" style="background: orange;"></div>Medium Risk (20-50mm)</div>
-                <div class="legend-item"><div class="legend-color" style="background: yellow;"></div>Low Risk (<20mm)</div>
+                <div class="legend-item"><div class="legend-color" style="background: red;"></div>High Risk (&gt;50mm)</div>
+                <div class="legend-item"><div class="legend-color" style="background: orange;"></div>Medium Risk (20–50mm)</div>
+                <div class="legend-item"><div class="legend-color" style="background: yellow;"></div>Low Risk (&lt;20mm)</div>
             </div>
         </div>
     </div>
@@ -66,7 +90,7 @@
     <div id="notificationContainer"></div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
-<script src="script.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
