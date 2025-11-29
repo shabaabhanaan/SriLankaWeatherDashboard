@@ -138,7 +138,46 @@ function getCombinedRisk(rain, wind) {
   }
   return { color: 'green', level: 'Low', detail: 'Calm / little rain' };
 }
+async function loadSriLankaNews() {
+    const newsContent = document.getElementById("newsContent");
+    const spinner = document.getElementById("newsSpinner");
 
+    spinner.style.display = "block";
+    newsContent.innerHTML = "";
+
+    try {
+        // Call your backend proxy (safe)
+        const response = await fetch("https://your-proxy-url/news");
+
+        const data = await response.json();
+
+        spinner.style.display = "none";
+
+        if (!data || data.news.length === 0) {
+            newsContent.innerHTML = "<p>No current news available.</p>";
+            return;
+        }
+
+        data.news.forEach(item => {
+            const div = document.createElement("div");
+            div.className = "news-item";
+
+            div.innerHTML = `
+                <h4>${item.title}</h4>
+                <p>${item.summary || "No summary available."}</p>
+                <a href="${item.url}" target="_blank">Read Full Article</a>
+            `;
+
+            newsContent.appendChild(div);
+        });
+
+    } catch (err) {
+        spinner.style.display = "none";
+        newsContent.innerHTML = "<p>Error loading news.</p>";
+    }
+}
+
+loadSriLankaNews();
 // Update flood & wind risk for all zones
 async function updateFloodZones() {
   showStatus('Updating flood & wind risk...', 'loading');
